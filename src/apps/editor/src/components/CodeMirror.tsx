@@ -1,4 +1,9 @@
-import { EditorView } from "codemirror";
+import { EditorView, basicSetup } from "codemirror";
+import { keymap, ViewUpdate } from "@codemirror/view";
+import { javascript } from "@codemirror/lang-javascript";
+import { EditorState, Transaction } from "@codemirror/state";
+import { indentUnit } from "@codemirror/language";
+import { indentWithTab } from "@codemirror/commands";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import styles from "./CodeMirror.module.css";
 import { CodePosition, getStore, patchStore, useStore } from "../lib/state.ts";

@@ -8,6 +8,7 @@ import Error from "./components/Error.tsx";
 import Console from "./components/Console.tsx";
 import GlobalStateDebugger from "./components/GlobalStateDebugger.tsx";
 import { useEffect, useState } from "preact/hooks";
+import DropBox from "./components/DropBox.tsx";
 
 import { useEffect } from "preact/hooks";
 import { init } from "./lib/init.js";
