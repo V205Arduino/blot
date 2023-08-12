@@ -1,9 +1,4 @@
-import { EditorView, basicSetup } from "codemirror";
-import { keymap, ViewUpdate } from "@codemirror/view";
-import { javascript } from "@codemirror/lang-javascript";
-import { EditorState, Transaction } from "@codemirror/state";
-import { indentUnit } from "@codemirror/language";
-import { indentWithTab } from "@codemirror/commands";
+import { EditorView } from "codemirror";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import styles from "./CodeMirror.module.css";
 import { CodePosition, getStore, patchStore, useStore } from "../lib/state.ts";
@@ -14,6 +9,7 @@ import { useVimMode, vimModeExtension } from "../lib/codemirror/cmVimMode.ts";
 import { numberScrubbingPlugin } from "../lib/codemirror/numberScrubbing.ts";
 import { manualChangeSinceLiveUpdate } from "../lib/run.js";
 import { errorIndicatorPlugin, setErrorPos } from "../lib/codemirror/errorIndicator.js";
+import { useOnJumpTo, viewJumpTo } from "../lib/codemirror/state.js";
 
 // this is a terrible hack but strange bugs are about this one
 //@ts-expect-error
@@ -55,6 +51,7 @@ export const createCMState = (content: string) =>
 
 export const [useOnJumpTo, dispatchJumpTo] = createEvent<CodePosition>();
 
+
 export default function CodeMirror({ className }: { className?: string }) {
     const { code: codeState, error } = useStore(["code", "error"]);
     const [view, setView] = useState<EditorView>();
@@ -74,18 +71,7 @@ export default function CodeMirror({ className }: { className?: string }) {
     useOnJumpTo(
         (pos) => {
             if (!view) return;
-            const offset = view.state.doc.line(pos.line).from + pos.column;
-            view.dispatch({
-                selection: {
-                    anchor: offset,
-                    head: offset
-                },
-                effects: EditorView.scrollIntoView(offset, {
-                    y: "center"
-                })
-            });
-            // focus the editor
-            view.focus();
+            viewJumpTo(pos, view);
         },
         [view]
     );

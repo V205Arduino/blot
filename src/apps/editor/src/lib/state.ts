@@ -3,6 +3,7 @@ import { createState } from "niue";
 import { createCMState } from "../components/CodeMirror.tsx";
 import { type Haxidraw, Turtle, type Point } from "haxidraw-client";
 import type { EditorView } from "@codemirror/view";
+import { createCMState, deserializeCMState } from "./codemirror/state.js";
 
 // state types
 
