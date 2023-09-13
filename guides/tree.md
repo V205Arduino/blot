@@ -1,6 +1,6 @@
 # let's draw a tree
 
-> You can follow along in this editor: https://editor.haxidraw.hackclub.com/
+> You can follow along in this editor: [https://editor.haxidraw.hackclub.com/](https://blot.hackclub.dev/editor)
 
 We're going to use abstract scribbles to make a tree that looks like this.
 
